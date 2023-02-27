@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('theme')->nullable();
             $table->string('text');
         });
+        Schema::table('comments', function($table) {
+            $table->foreignId('article_id')->nullable()->constrained('articles')->onDelete('cascade');
+        });
     }
 
     /**

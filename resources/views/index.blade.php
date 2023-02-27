@@ -27,6 +27,7 @@
                         <div class="card-body">
                             <p class="card-text text-truncate fw-bold">{{$article->title}}</p>
                             <p class="card-text">{{(strlen($article->text) > 100) ? substr($article->text, 0, 100) . '...' : $article->text}}</p>
+                            <a href="articles/{{$article->id}}">Читать далее...</a>
                             <div class="d-flex justify-content-between align-items-center">
 
                                 <div class="btn interaction">

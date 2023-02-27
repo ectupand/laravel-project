@@ -9,20 +9,26 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-4">
-                <!-- Comment widget-->
+                <!-- Comments section-->
+
                 <section class="mb-5">
                     <div class="card bg-light">
                         <div class="card-body">
                             <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Выскажитесь!"></textarea></form>
+                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Выскажитесь!"></textarea>
+                                <button class="btn btn-light btn-outline-secondary">Отправить</button>
+                            </form>
+
                             <!-- Single comment-->
+                            @for ($i = 0; $i < count($article->comment); $i++)
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
                                 <div class="ms-3">
-                                    <div class="fw-bold">{{$article->comment->theme}}</div>
-                                    {{$article->comment->text}}
+                                    <div class="fw-bold">{{$article->comment[$i]->theme}}</div>
+                                    {{$article->comment[$i]->text}}
                                 </div>
                             </div>
+                            @endfor
                         </div>
                     </div>
                 </section>
@@ -70,7 +76,6 @@
                     </div>
                 </article>
 
-                <!-- Comments section-->
 
             </div>
         </div>

@@ -19,10 +19,7 @@ return new class extends Migration
             $table->string('text');
             $table->timestamp('created_at')->useCurrent();
         });
-        Schema::table('articles', function($table) {
-            $table->foreignId('tag_id')->constrained('articles-tags')->onDelete('cascade');
-            $table->foreignId('comment_id')->nullable()->constrained('articles-comments')->onDelete('cascade');
-        });
+
     }
 
     /**

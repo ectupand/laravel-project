@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Model
 {
@@ -14,9 +15,9 @@ class Article extends Model
         return $this->belongsToMany(Tag::class, 'articles-tags', 'article_id', 'tag_id');
     }
 
-    public function comment(): BelongsTo
+    public function comment(): hasMany
     {
-        return $this->belongsTo(Comment::class, 'comment_id', 'id');
+        return $this->hasMany(Comment::class);
     }
 
 }
