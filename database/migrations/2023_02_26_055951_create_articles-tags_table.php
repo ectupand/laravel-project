@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('articles-tags', function($table) {
-            $table->foreignId('article_id')->constrained('articles')->onDelete('cascade')->nullable();
-            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade')->nullable();
+            $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tags');
     }
 };

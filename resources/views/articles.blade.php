@@ -33,13 +33,13 @@
                             </section>
                             <div class="d-flex justify-content-between align-items-center">
 
-                                <div class="btn interaction">
-                                    <button type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                <div class="btn interaction" >
+                                    <button type="button" class="btn btn-secondary" data-id="{{$article->id}}" id="pressLike" >
+                                        <svg id='likeBtn' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
                                         </svg>
 
-                                        <label>{{$article->likes}}</label>
+                                        <label id="likeCount">{{$article->likes}}</label>
                                     </button>
                                 </div>
 
@@ -54,11 +54,35 @@
                             </div>
                         </article>
                     </div>
+                    <input type="hidden" id="article_id" value="{{ $article->id }}">
+
                 @endforeach
+                <script>
+                    $(document).on('click', '#pressLike', function(event){
+                        event.preventDefault();
+                        let article_id;
+                        if (event.target.dataset.id){
+                            article_id = event.target.dataset.id;
+                        }
+                        else {
+                            article_id = event.target.parentElement.dataset.id;
+                        }
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/articles/'+article_id+'/like',
+                            success: function(){
+                                setTimeout(
+                                    function() {
+                                        location.reload();}, 0o001);
+                            }
+                        })
+                    });
+                </script>
             </div>
         </div>
 
     </div>
     <p class="text-secondary">{{ $articles->links() }}</p>
+
 
 @endsection

@@ -15,9 +15,35 @@
                     <div class="card bg-light">
                         <div class="card-body">
                             <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Выскажитесь!"></textarea>
-                                <button class="btn btn-light btn-outline-secondary">Отправить</button>
+                            <form class="mb-4 col-12" id="addComment">
+                                <input type="hidden" id="article_id" value="{{ $article->id }}">
+                                <label>
+                                    <input class="form-control" id="theme" placeholder="Тема">
+                                </label>
+                                <label>
+                                    <textarea class="form-control" rows="3" cols="50" id="text" placeholder="Выскажитесь!"></textarea>
+                                </label>
+
+                                <button type="submit" class="btn btn-light btn-outline-secondary d-flex center">Отправить</button>
                             </form>
+
+                            <script>
+                                $('#addComment').on('submit', function (){
+                                    var theme = $('#theme').val();
+                                    var text = $('#text').val();
+                                    var article_id = $('#article_id').val()
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: {
+                                            subject: theme,
+                                            body: text,
+                                        },
+                                        url: '/api/articles/'+article_id,
+                                    })
+                                });
+                            </script>
 
                             <!-- Single comment-->
                             @for ($i = 0; $i < count($article->comment); $i++)
@@ -55,15 +81,29 @@
                     </section>
                     <div class="d-flex justify-content-between align-items-center">
 
-                        <div class="btn interaction">
+                        <div class="btn interaction" id="pressLike">
                             <button type="button" class="btn btn-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                <svg id='likeBtn' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                                     <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
                                 </svg>
 
-                                <label>{{$article->likes}}</label>
+                                <label id="likeCount">{{$article->likes}}</label>
                             </button>
                         </div>
+                        <script>
+                            $('#pressLike').on('click', function (){
+                                var article_id = $('#article_id').val()
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/api/articles/'+article_id+'/like',
+                                    success: function(){
+                                        setTimeout(
+                                            function() {
+                                                location.reload();}, 0o001);
+                                    }
+                                })
+                            });
+                        </script>
 
                         <div class="fs-4 mb-3">
                             <label>{{$article->views}}</label>

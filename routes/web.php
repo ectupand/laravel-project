@@ -15,10 +15,6 @@ use App\Http\Controllers\ArticleController;
 
 Route::get('/', [ArticleController::class, 'index']);
 
-#Route::get('/', function(){
-#    return view('index');
-#});
-
 
 Route::get('/articles', [ArticleController::class, 'articles']);
 Route::get('/articles/{slug}', [ArticleController::class, 'article']);

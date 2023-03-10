@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\CommentController;
@@ -19,6 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'comments' => CommentController::class,
-]);
+Route::apiResources(['comments' => CommentController::class]);
+
+Route::post('articles/{slug}/comment', [CommentController::class, 'store']);
+Route::get('articles/{slug}/like', [LikeController::class, 'show']);
+
+

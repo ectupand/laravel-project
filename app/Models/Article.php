@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Model
 {
+    protected $fillable = ['likes'];
+    const UPDATED_AT = null;
 
     public function tag(): BelongsToMany
     {
