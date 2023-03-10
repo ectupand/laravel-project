@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\API\ViewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\CommentController;
@@ -24,5 +25,6 @@ Route::apiResources(['comments' => CommentController::class]);
 
 Route::post('articles/{slug}/comment', [CommentController::class, 'store']);
 Route::get('articles/{slug}/like', [LikeController::class, 'show']);
+Route::get('articles/{slug}/view', [ViewController::class, 'show']);
 
 

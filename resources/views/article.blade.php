@@ -43,6 +43,15 @@
                                         url: '/api/articles/'+article_id,
                                     })
                                 });
+
+                                $(function() {
+                                    var article_id = $('#article_id').val()
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '/api/articles/'+article_id+'/view',
+                                        timeout: 5000,
+                                    })
+                                });
                             </script>
 
                             <!-- Single comment-->
